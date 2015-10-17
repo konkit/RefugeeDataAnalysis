@@ -42,5 +42,10 @@ class MyListener(StreamListener):
         return True
 
 while 1==1:
-    twitter_stream = Stream(auth, MyListener())
-    twitter_stream.filter(track=['#refugee', '#refugeecrisis', '#refugees'])
+    try:
+        twitter_stream = Stream(auth, MyListener())
+        twitter_stream.filter(track=['#refugee', '#refugeecrisis', '#refugees'])
+    except KeyboardInterrupt as e:
+        break
+    except BaseException as e:
+        print("[%s] Error: %s" % ( str(datetime.datetime.now()), str(e)) )
