@@ -10,6 +10,7 @@ from pymongo import MongoClient
 
 import os
 import json
+import datetime
 
 # Tweepy setup
 consumer_key = os.environ['TWITTER_CONSUMER_KEY']
@@ -31,14 +32,15 @@ class MyListener(StreamListener):
         try:
             tweet_obj = json.loads(data)
             tweet_id = refugee_tweets.insert_one(tweet_obj).inserted_id
-            print("tweet %s added" % str(tweet_id))
+            print("[%s] tweet %s added" % ( str(datetime.datetime.now()), str(tweet_id)) )
             return True
         except BaseException as e:
-            print("Error on_data: %s" % str(e))
+            print("[%s] Error on_data: %s" % ( str(datetime.datetime.now()), str(e)) )
         return True
     def on_error(self, status):
-        print("Something went ... wrong " + str(status))
+        print("[%s] Something went ... wrong [%s]" % ( str(datetime.datetime.now()), str(status)) )
         return True
 
-twitter_stream = Stream(auth, MyListener())
-twitter_stream.filter(track=['#refugee', '#refugeecrisis', '#refugees'])
+while 1==1:
+    twitter_stream = Stream(auth, MyListener())
+    twitter_stream.filter(track=['#refugee', '#refugeecrisis', '#refugees'])
