@@ -1,4 +1,14 @@
 #!/bin/bash
+
+#!/bin/bash
+
+die () {
+    echo >&2 "$@"
+    exit 1
+}
+
+[ "$#" -eq 1 ] || die "1 argument required ( python script filename )"
+
 . venv/bin/activate
 
 export MONGOURL="mongodb://localhost:27017/"
@@ -8,8 +18,10 @@ export TWITTER_CONSUMER_SECRET="ENTER_YOUR_KEY_HERE"
 export TWITTER_ACCESS_TOKEN="ENTER_YOUR_KEY_HERE"
 export TWITTER_ACCESS_SECRET="ENTER_YOUR_KEY_HERE"
 
+export GOOGLE_MAPS_API_KEY="AIzaSyBuFm9fDiNFN9vq2x7_ZG5IeXh17_yd70Q"
+
 ./requirements.sh
 
-python miner.py
+python $1
 
 deactivate
