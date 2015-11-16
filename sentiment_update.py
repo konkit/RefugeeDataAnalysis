@@ -8,6 +8,8 @@ import os
 import json
 import datetime
 import sys
+import sentiment_value
+from sentiment_value import * 
 
 # MongoDB setup
 client = MongoClient( os.getenv('MONGOURL', 'mongodb://localhost:27017/') )
@@ -21,7 +23,9 @@ def update_tweet( refugee_tweets, tweet ):
     refugee_tweets.save(tweet)
 
 def get_sentiment(text):
-    print text      # TODO: Sentiment calculations there !
+    words = sentiment_value.splitter(text)
+    sentiment = sentiment_value.count_sentiment(words)
+    return sentiment
 
 for tweet in cursor:
     if 'text' in tweet.keys():
