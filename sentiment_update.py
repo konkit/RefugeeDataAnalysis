@@ -17,8 +17,11 @@ refugee_tweets = db.refugee_tweets
 cursor = refugee_tweets.find({}, modifiers={"$snapshot": True})
 
 def update_tweet( refugee_tweets, tweet ):
-    doc['sentiment'] = 'sentiment_value'
-    refugee_tweets.save(doc)
+    tweet['sentiment'] = get_sentiment(tweet['text'])
+    refugee_tweets.save(tweet)
+
+def get_sentiment(text):
+    print text      # TODO: Sentiment calculations there !
 
 for tweet in cursor:
     if 'text' in tweet.keys():
