@@ -1,2 +1,7 @@
 venv/
 run.sh
+*.png
+*.dat
+*.csv
+*.json
+*.txt

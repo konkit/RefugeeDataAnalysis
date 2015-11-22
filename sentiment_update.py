@@ -9,7 +9,7 @@ import json
 import datetime
 import sys
 import sentiment_value
-from sentiment_value import * 
+from sentiment_value import *
 
 # MongoDB setup
 client = MongoClient( os.getenv('MONGOURL', 'mongodb://localhost:27017/') )
